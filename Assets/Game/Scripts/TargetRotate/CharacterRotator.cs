@@ -1,9 +1,4 @@
-using System;
-using Cinemachine;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(TargetRotateCharacter), typeof(CharacterMovement))]
 public class CharacterRotator : MonoBehaviour
