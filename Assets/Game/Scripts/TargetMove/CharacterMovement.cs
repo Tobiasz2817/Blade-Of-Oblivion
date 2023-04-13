@@ -36,4 +36,8 @@ public class CharacterMovement : MonoBehaviour
         var direction = (directionMovement.y * moveTarget.transform.forward + directionMovement.x * moveTarget.transform.right).normalized;
         characterController.Move(direction * (characterSpeed * Time.deltaTime));
     }
+
+    public Vector3 GetDirectionMovement() {
+        return directionMovement;
+    }
 }
