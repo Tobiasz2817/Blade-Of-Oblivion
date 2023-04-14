@@ -9,8 +9,9 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float characterSpeed = 15f;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform moveTarget;
-    
-    private Vector2 directionMovement;
+
+    public Vector2 DirectionMovement { private set; get; }
+
     public void Awake() {
         if(characterController == null)
             characterController = GetComponent<CharacterController>();
@@ -29,15 +30,11 @@ public class CharacterMovement : MonoBehaviour
     }
     
     private void ReadMovement(InputAction.CallbackContext callback) {
-        directionMovement = callback.ReadValue<Vector3>();
+        DirectionMovement = callback.ReadValue<Vector3>();
     }
 
     private void Update() {
-        var direction = (directionMovement.y * moveTarget.transform.forward + directionMovement.x * moveTarget.transform.right).normalized;
+        var direction = (DirectionMovement.y * moveTarget.transform.forward + DirectionMovement.x * moveTarget.transform.right).normalized;
         characterController.Move(direction * (characterSpeed * Time.deltaTime));
-    }
-
-    public Vector3 GetDirectionMovement() {
-        return directionMovement;
     }
 }
