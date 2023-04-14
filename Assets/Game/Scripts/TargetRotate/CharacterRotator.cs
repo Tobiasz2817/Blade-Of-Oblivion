@@ -12,7 +12,7 @@ public class CharacterRotator : MonoBehaviour
     }
 
     private void Update() {
-        if (characterMovement.GetDirectionMovement() == Vector3.zero) 
+        if (characterMovement.DirectionMovement == (Vector2)Vector3.zero) 
             return;
 
         targetRotateCharacter.RotateCharacter();
