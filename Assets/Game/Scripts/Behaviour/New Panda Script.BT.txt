@@ -1,0 +1,4 @@
+tree("Root")
+	sequence
+		PatrolPoint()
+		Wait 5.0
