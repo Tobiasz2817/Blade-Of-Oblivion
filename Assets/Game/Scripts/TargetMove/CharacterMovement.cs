@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
@@ -10,6 +12,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform moveTarget;
 
+    private bool canMove = true;
+    
     public Vector2 DirectionMovement { private set; get; }
 
     public void Awake() {
@@ -34,7 +38,12 @@ public class CharacterMovement : MonoBehaviour
     }
 
     private void Update() {
+        if (!canMove) return;
         var direction = (DirectionMovement.y * moveTarget.transform.forward + DirectionMovement.x * moveTarget.transform.right).normalized;
-        characterController.Move(direction * (characterSpeed * Time.deltaTime));
+        characterController.Move(direction * characterSpeed * Time.deltaTime);
+    }
+
+    public void SetCanMove(bool canMove_) {
+        this.canMove = canMove_;
     }
 }
