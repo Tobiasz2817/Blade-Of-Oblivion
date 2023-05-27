@@ -1,4 +1,13 @@
 tree("Root")
-	sequence
-		PatrolPoint()
-		Wait 5.0
+	fallback
+		tree("Patrol")
+		tree("Waiting")
+tree("Patrol")
+	while not IsWaiting()
+		sequence
+			SetPatrolPoint()
+			PatrolPoint()
+tree("Waiting")
+	while IsWaiting()
+		Waiting()
+			

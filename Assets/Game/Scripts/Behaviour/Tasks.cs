@@ -1,48 +1,111 @@
 using UnityEngine;
 using Panda;
 using UnityEngine.AI;
+using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class Tasks : MonoBehaviour
 {
-    NavMeshAgent agent;
-    Animator animator;
+    NavMeshAgent _agent;
+    Animator _animator;
     Vector3 point;
+    [SerializeField]
+    float waitTime = 3f;
+    [SerializeField]
+    List<Waypoint> _patrolWaypoints;
+    [SerializeField]
+    bool patroling =false;
+    bool attacking;
+    bool chasing;
+    [SerializeField]
+    bool waiting;
+    int _patrolIndex;
+
     private void Start()
     {
-        agent = this.GetComponent<NavMeshAgent>();
-        animator = this.GetComponent<Animator>();
+        _agent = this.GetComponent<NavMeshAgent>();
+        _animator = this.GetComponent<Animator>();
+        if (_agent == null)
+            Debug.LogError("NavmeshAgent is not attached to " + gameObject.name);
+        else
+        {
+            if (_patrolWaypoints != null && _patrolWaypoints.Count >= 2)
+            {
+                patroling = true;
+                _animator.SetBool("Patroling", patroling);
+                _patrolIndex = 0;
+            }
+            else
+                Debug.LogError("Not enough patrol points set to waypoint list");
+        }
+        if (_animator == null)
+            Debug.LogError("Animator is not attached to " + gameObject.name);
+        
     }
     private void Update()
     {
-        if (transform.position != point)
-        {
-            animator.SetBool("Partoling", true);
-        }
-        else animator.SetBool("Partoling", false);
+       
     }
     [Task]
+    void Waiting()
+    {
+        waitTime += Time.deltaTime;
+        if (waitTime >= 5f)
+        {
+            waitTime = 0;
+            patroling = true;
+            return;
+        }
+        else
+            _animator.SetBool("Patroling", false);
+    }
+    [Task]
+    void SetPatrolPoint()
+    {
+        ChangePatrolPoint();
+        Task.current.Succeed();
+    }
+    [Task]  
     void PatrolPoint()
     {
-        point = RandomPoint(agent.transform.position,10.0f);
-        Debug.Log(point);
-        MoveTo(point);
-        ThisTask.Complete(true);
+        patroling = true;
+        SetAnimation();
+        SetDestination();
+        if(patroling && _agent.remainingDistance <= 0.5f)
+        {
+            patroling = false;
+            Task.current.Succeed();
+        }
     }
-    public static Vector3 RandomPoint(Vector3 center, float maxDistance)
+    [Task]
+    bool IsWaiting()
     {
-        // Get Random Point inside Sphere which position is center, radius is maxDistance
-        Vector3 randomPos = Random.insideUnitSphere * maxDistance + center;
-
-        NavMeshHit hit; // NavMesh Sampling Info Container
-
-        // from randomPos find a nearest point on NavMesh surface in range of maxDistance
-        NavMesh.SamplePosition(randomPos, out hit, maxDistance, NavMesh.AllAreas);
-
-        return hit.position;
+        if (patroling)
+            return false;
+        else
+            return true;
     }
-    void MoveTo(Vector3 point)
+    [Task]
+    void EndWait()
     {
-        Vector3 pos = this.gameObject.transform.position;
-        agent.SetDestination(point);
+        waiting = false;
+        ThisTask.Succeed();
+    }
+    void ChangePatrolPoint()
+    {
+        //Sprawdza czy patrolIndex mieœci sie w liœcie waypointów, jeœli nie to go zeruje
+        _patrolIndex = (_patrolIndex + 1) % _patrolWaypoints.Count;
+    }
+    void SetAnimation()
+    {
+        _animator.SetBool("Patroling", patroling);
+    }
+    void SetDestination()
+    {
+        if (_patrolWaypoints != null)
+        {
+            Vector3 targetVector = _patrolWaypoints[_patrolIndex].transform.position;
+            _agent.SetDestination(targetVector);
+        }
     }
 }
