@@ -1,5 +1,6 @@
 tree("Root")
 	fallback
+		tree("AttackPlayer")
 		tree("Patrol")
 		tree("Waiting")
 tree("Patrol")
@@ -10,4 +11,7 @@ tree("Patrol")
 tree("Waiting")
 	while IsWaiting()
 		Waiting()
-			
+tree("AttackPlayer")
+	while PlayerInRange()
+		sequence
+			MoveToPlayer()

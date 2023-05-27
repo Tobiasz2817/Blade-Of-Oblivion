@@ -3,9 +3,11 @@ using Panda;
 using UnityEngine.AI;
 using Unity.VisualScripting;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 
 public class Tasks : MonoBehaviour
 {
+    GameObject player;
     NavMeshAgent _agent;
     Animator _animator;
     Vector3 point;
@@ -25,6 +27,11 @@ public class Tasks : MonoBehaviour
     {
         _agent = this.GetComponent<NavMeshAgent>();
         _animator = this.GetComponent<Animator>();
+        player = GameObject.FindWithTag("Player");
+        if(player == null)
+        {
+            Debug.LogError("There is no player on game scene");
+        }
         if (_agent == null)
             Debug.LogError("NavmeshAgent is not attached to " + gameObject.name);
         else
@@ -42,9 +49,15 @@ public class Tasks : MonoBehaviour
             Debug.LogError("Animator is not attached to " + gameObject.name);
         
     }
-    private void Update()
+    [Task]
+    bool PlayerInRange()
     {
-       
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        if (distance <= 20f)
+        {
+            return true;
+        }
+        else return false;
     }
     [Task]
     void Waiting()
@@ -68,10 +81,14 @@ public class Tasks : MonoBehaviour
     [Task]  
     void PatrolPoint()
     {
-        patroling = true;
-        SetAnimation();
-        SetDestination();
-        if(patroling && _agent.remainingDistance <= 0.5f)
+        if (ThisTask.isStarting)
+        {
+            patroling = true;
+            SetAnimation();
+            SetDestination();
+            return;
+        }
+        if(patroling && _agent.remainingDistance <= 0f)
         {
             patroling = false;
             Task.current.Succeed();
@@ -90,6 +107,14 @@ public class Tasks : MonoBehaviour
     {
         waiting = false;
         ThisTask.Succeed();
+    }
+    [Task]
+    void MoveToPlayer()
+    {
+        Vector3 direction = player.transform.position - transform.position;
+        Vector3 offset = direction.normalized * 3f;
+        Vector3 newdest = player.transform.position + offset;
+        _agent.SetDestination(newdest);
     }
     void ChangePatrolPoint()
     {
