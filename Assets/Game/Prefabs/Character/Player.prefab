@@ -507,6 +507,7 @@ MonoBehaviour:
   characterSpeed: 5
   characterController: {fileID: 113875889}
   moveTarget: {fileID: 3753324638924342627}
+  combat: {fileID: 3753324640023196117}
 --- !u!114 &3753324640023196103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,7 +1688,7 @@ MonoBehaviour:
   animator: {fileID: 8831638496135436913}
   singleAttack:
     <damage>k__BackingField: 20
-    <motion>k__BackingField: {fileID: -2794525774925093413, guid: 83cb8742d5b5bec4f86b2e4a26822bef, type: 3}
+    <motion>k__BackingField: {fileID: 1688571938728901323, guid: fa9ccddb5938ff44a81ee06e2f6d1a58, type: 3}
 --- !u!114 &3753324640023196116
 MonoBehaviour:
   m_ObjectHideFlags: 0
