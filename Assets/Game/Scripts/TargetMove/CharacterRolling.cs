@@ -12,6 +12,7 @@ public class CharacterRolling : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private ListenerLastPressedVectorBinds listenerBinds;
     [SerializeField] private InputActionReference rollTriggerAction;
+    [SerializeField] private CombatManager combat;
 
     private bool canRolling = true;
     private float rollSpeed;
@@ -28,7 +29,7 @@ public class CharacterRolling : MonoBehaviour
     }
 
     private void Roll(InputAction.CallbackContext obj) {
-        if (!canRolling || !listenerBinds.IsFindingBind()) return;
+        if (!canRolling || !listenerBinds.IsFindingBind() || combat.IsSomeAttackInvoke()) return;
         
         var direction = GetDirectionByLastInput();
         StartCoroutine(Rolling(direction));

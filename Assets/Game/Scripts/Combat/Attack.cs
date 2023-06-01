@@ -35,6 +35,7 @@ public abstract class Attack : MonoBehaviour
 
     public abstract void MakingAttack();
     public abstract bool IsAnimating();
+    public abstract bool BlockingMovement();
 
     protected void SpeedAnimation(float increaseSpeedBy, string nameParameter) {
         var animInfo = animator.GetCurrentAnimatorStateInfo(0);

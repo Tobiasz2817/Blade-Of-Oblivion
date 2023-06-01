@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,11 +39,12 @@ public class CombatManager : MonoBehaviour
         return false;
     }
     
-    public Attack GetInvokedAttack() {
+    public bool IsCurrentAnimationBlockMovement() {
         foreach (var attack in attacks) 
             if (attack.IsAnimating()) 
-                return attack;
+                if(attack.BlockingMovement())
+                    return true;
 
-        return null;
+        return false;
     }
 }

@@ -212,6 +212,15 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""74a7bb15-4ae8-4298-be32-68b33588170c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -236,6 +245,17 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""action"": ""Spin"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81d25edc-1fb1-4897-bb30-bb493451f50d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -257,6 +277,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
         m_Combat_LeftAttack = m_Combat.FindAction("LeftAttack", throwIfNotFound: true);
         m_Combat_Spin = m_Combat.FindAction("Spin", throwIfNotFound: true);
+        m_Combat_RightAttack = m_Combat.FindAction("RightAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -433,12 +454,14 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private ICombatActions m_CombatActionsCallbackInterface;
     private readonly InputAction m_Combat_LeftAttack;
     private readonly InputAction m_Combat_Spin;
+    private readonly InputAction m_Combat_RightAttack;
     public struct CombatActions
     {
         private @Inputs m_Wrapper;
         public CombatActions(@Inputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @LeftAttack => m_Wrapper.m_Combat_LeftAttack;
         public InputAction @Spin => m_Wrapper.m_Combat_Spin;
+        public InputAction @RightAttack => m_Wrapper.m_Combat_RightAttack;
         public InputActionMap Get() { return m_Wrapper.m_Combat; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -454,6 +477,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Spin.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnSpin;
                 @Spin.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnSpin;
                 @Spin.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnSpin;
+                @RightAttack.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightAttack;
+                @RightAttack.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightAttack;
+                @RightAttack.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightAttack;
             }
             m_Wrapper.m_CombatActionsCallbackInterface = instance;
             if (instance != null)
@@ -464,6 +490,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Spin.started += instance.OnSpin;
                 @Spin.performed += instance.OnSpin;
                 @Spin.canceled += instance.OnSpin;
+                @RightAttack.started += instance.OnRightAttack;
+                @RightAttack.performed += instance.OnRightAttack;
+                @RightAttack.canceled += instance.OnRightAttack;
             }
         }
     }
@@ -486,5 +515,6 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     {
         void OnLeftAttack(InputAction.CallbackContext context);
         void OnSpin(InputAction.CallbackContext context);
+        void OnRightAttack(InputAction.CallbackContext context);
     }
 }
