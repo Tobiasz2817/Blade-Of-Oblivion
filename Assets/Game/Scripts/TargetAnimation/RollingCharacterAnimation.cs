@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +6,7 @@ public class RollingCharacterAnimation : MonoBehaviour
     [SerializeField] private Animator characterAnim;
     [SerializeField] private ListenerLastPressedVectorBinds listenerBinds;
     [SerializeField] private InputActionReference rollTriggerAction;
+    [SerializeField] private CombatManager combat;
 
     private bool canRolling = true;
 
@@ -23,7 +23,7 @@ public class RollingCharacterAnimation : MonoBehaviour
     }
 
     private void Roll(InputAction.CallbackContext obj) {
-        if (!listenerBinds.IsFindingBind() || !canRolling) return;
+        if (!listenerBinds.IsFindingBind() || !canRolling || combat.IsSomeAttackInvoke()) return;
 
         var lastPressBind = GetDirectionByEnum(listenerBinds.GetDirectionBind());
         

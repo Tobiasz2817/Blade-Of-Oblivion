@@ -40,6 +40,10 @@ public class ComboAttack : Attack
         return isAnimating;
     }
 
+    public override bool BlockingMovement() {
+        return true;
+    }
+
     private IEnumerator MakingCombo() {
         foreach (var attack in comboDependenciesList) {
             animator.Play(attack.motion.name);
