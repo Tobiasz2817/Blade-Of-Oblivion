@@ -1,8 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SingleAttack : Attack
 {
@@ -20,16 +18,16 @@ public class SingleAttack : Attack
         isAnimating = true;
     }
 
+    public override float GetDamage() {
+        return singleAttack.damage;
+    }
+
     public override bool IsAnimating() {
         return isAnimating;
     }
 
     public override bool BlockingMovement() {
         return true;
-    }
-
-    protected override void InvokeAttackBind(InputAction.CallbackContext callbackContext) {
-        base.InvokeAttackBind(callbackContext);
     }
 
     private IEnumerator MakingCombo() {

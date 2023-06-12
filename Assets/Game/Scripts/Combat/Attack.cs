@@ -3,39 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public abstract class Attack : MonoBehaviour
 {
     public Action<Attack> OnPressedBind;
-    public Action<Attack> OnRealesedBind;
+    public Action<Attack> OnReleasedBind;
+    public Action<Attack> OnTriggerEvent;
+    public Action<Attack> OnStartAnimAttack;
+    public Action<Attack> OnExecuteAnimAttack;
     protected bool isAnimating = false;
 
-    [SerializeField] protected InputActionReference bindAttack;
+    [SerializeField] protected CombatInput combatInput;
     [SerializeField] protected Animator animator;
 
     protected virtual void OnEnable() {
-        bindAttack.action.performed += InvokeAttackBind;
-        bindAttack.action.canceled += InvokeAttackBind;
-        bindAttack.action.Enable();
+        combatInput.OnPress += InvokePressBind;
+        combatInput.OnRealesed += InvokeReleasedBind;
     }
 
     protected virtual void OnDisable() {
-        bindAttack.action.performed -= InvokeAttackBind;
-        bindAttack.action.canceled -= InvokeAttackBind;
-        bindAttack.action.Disable();
+        combatInput.OnPress += InvokePressBind;
+        combatInput.OnRealesed += InvokeReleasedBind;
     }
-
-    protected virtual void InvokeAttackBind(InputAction.CallbackContext callbackContext) {
-        if (callbackContext.performed)
-            OnPressedBind?.Invoke(this);
-        else if (callbackContext.canceled)
-            OnRealesedBind?.Invoke(this);
+    
+    
+    protected virtual void InvokePressBind() {
+        OnPressedBind?.Invoke(this);
     }
-
-    public abstract void MakingAttack();
-    public abstract bool IsAnimating();
-    public abstract bool BlockingMovement();
+    
+    protected virtual void InvokeReleasedBind() {
+        OnReleasedBind?.Invoke(this);
+    }
+    
+    public void AnimTriggerHandler() {
+        if (!IsAnimating()) return;
+        OnTriggerEvent?.Invoke(this);
+    }
 
     protected void SpeedAnimation(float increaseSpeedBy, string nameParameter) {
         var animInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -56,9 +59,23 @@ public abstract class Attack : MonoBehaviour
         });
     }
     
+    public IEnumerator StopBeforeAnimReachTime(float animationPercent) {
+        yield return new WaitUntil(() => {
+            var animInfo = animator.GetCurrentAnimatorStateInfo(0);
+            var stop = animInfo.length * Mathf.Clamp(animationPercent / 100,0f,0.99f);
+            var currentAnimFrame = animInfo.normalizedTime * animInfo.length;
+            return currentAnimFrame > stop;
+        });
+    }
+    
     protected IEnumerator WaitForEndAnimation(string nameAnimation) {
         yield return new WaitUntil(() => !animator.GetCurrentAnimatorStateInfo(0).IsName(nameAnimation));
     }
+    
+    public abstract void MakingAttack();
+    public abstract float GetDamage();
+    public abstract bool IsAnimating();
+    public abstract bool BlockingMovement();
 }
 
 public class CountMousePress

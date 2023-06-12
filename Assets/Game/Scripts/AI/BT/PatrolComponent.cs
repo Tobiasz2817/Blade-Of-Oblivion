@@ -13,6 +13,10 @@ public class PatrolComponent : MonoBehaviour
         return points[GetNextIndexPoint(currentIndexPoint)];
     }
 
+    public Transform GetCurrentPoint() {
+        return points[currentIndexPoint];
+    }
+    
     private int GetNextIndexPoint(int currentIndex) {
         currentIndex++;
         if (currentIndex >= points.Count)

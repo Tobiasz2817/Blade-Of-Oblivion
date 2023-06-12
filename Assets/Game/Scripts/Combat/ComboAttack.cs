@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ComboAttack : Attack
 {
@@ -25,6 +24,8 @@ public class ComboAttack : Attack
     [SerializeField]
     protected List<ComboDependencies> comboDependenciesList = new List<ComboDependencies>();
 
+    private ComboDependencies currentDependencies;
+    
     private void Start() {
         countMousePress = new CountMousePress();
         comboDependenciesList = comboDependenciesList.OrderBy((valeus) => valeus.priorty).ToList();
@@ -34,6 +35,10 @@ public class ComboAttack : Attack
         if (isAnimating) return;
         StartCoroutine(MakingCombo());
         isAnimating = true;
+    }
+
+    public override float GetDamage() {
+        return currentDependencies != null ? currentDependencies.damage : 0f;
     }
 
     public override bool IsAnimating() {
@@ -46,6 +51,7 @@ public class ComboAttack : Attack
 
     private IEnumerator MakingCombo() {
         foreach (var attack in comboDependenciesList) {
+            currentDependencies = attack;
             animator.Play(attack.motion.name);
             SpeedAnimation(attack.incrementSpeedAnim,attack.speedAnimationFloat);
             yield return new WaitForSeconds(0.02f);
@@ -55,6 +61,8 @@ public class ComboAttack : Attack
             if (!countMousePress.ButtonWasPressedLastTime(0.3f)) break;
         }
 
+        currentDependencies = null;
+
         countMousePress.ResetTime();
         isAnimating = false;
     }
@@ -62,9 +70,9 @@ public class ComboAttack : Attack
     private void IncrementPress() {
         countMousePress.IncrementPressing();
     }
-
-    protected override void InvokeAttackBind(InputAction.CallbackContext callbackContext) {
-        base.InvokeAttackBind(callbackContext);
+    
+    protected override void InvokePressBind() {
+        base.InvokePressBind();
         IncrementPress();
     }
 }

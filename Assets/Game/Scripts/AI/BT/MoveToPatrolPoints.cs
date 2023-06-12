@@ -6,27 +6,25 @@ public class MoveToPatrolPoints : Move
 {
     [SerializeField] private PatrolComponent patrolComponent;
 
-    private FirstEntryBT firstEntryBt;
-    private void Start() {
-        firstEntryBt = new FirstEntryBT();
-    }
-
     [Task]
-    public void TreeMoveTask() {
+    public void TaskMoveToPatrolPoint() {
         if(patrolComponent.IsReachedDestination())
             MoveToNextPoint();
 
-        if (firstEntryBt.IsFirstEntry())
-            MoveToNextPoint();
-
+        MoveToCurrentPoint();
         Task.current.Succeed();
     }
     
     public void MoveToNextPoint() {
         MoveToPosition(patrolComponent.GetNextPoint().position);
     }
+    
+    public void MoveToCurrentPoint() {
+        MoveToPosition(patrolComponent.GetCurrentPoint().position);
+    }
 }
 
+/*
 public class FirstEntryBT
 {
     private bool firstEntry = true;
@@ -39,3 +37,4 @@ public class FirstEntryBT
         return firstEntry;
     }
 }
+*/

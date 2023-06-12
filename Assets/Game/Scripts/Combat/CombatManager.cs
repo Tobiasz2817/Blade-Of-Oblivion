@@ -9,9 +9,13 @@ public class CombatManager : MonoBehaviour
     private bool processingHit = false;
 
     private Attack currentAttack;
+    [SerializeField] private CollisionMaker collisionMaker;
     private void Start() {
-        foreach (var attacking in attacks) 
+        foreach (var attacking in attacks) {
             attacking.OnPressedBind += DoSomething;
+            attacking.OnTriggerEvent += CheckingCollision;
+            attacking.OnExecuteAnimAttack += EndAttack;
+        }
     }
 
     private void DoSomething(Attack obj) {
@@ -24,6 +28,15 @@ public class CombatManager : MonoBehaviour
         }
        
         obj.MakingAttack();
+        currentAttack = obj;
+    }
+    
+    private void CheckingCollision(Attack obj) {
+        collisionMaker.SendCollisionCoroutine(2f, false, true);
+    }
+
+    private void EndAttack(Attack obj) {
+        collisionMaker.StopMakingCollision(0f);
     }
     
 
@@ -46,5 +59,9 @@ public class CombatManager : MonoBehaviour
                     return true;
 
         return false;
+    }
+
+    public float GetAnimationDamage() {
+        return currentAttack != null ? currentAttack.GetDamage() : 0f;
     }
 }
