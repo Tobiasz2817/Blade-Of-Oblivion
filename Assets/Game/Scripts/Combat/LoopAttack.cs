@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class LoopAttack : Attack
@@ -9,12 +8,19 @@ public class LoopAttack : Attack
     [Serializable]
     public class LoopDependencies
     {
-        public string returnParameter;
-        public float loopTime = 4f;
-        public float stopValue = 0f;
-        public float unlockTime = 10f;
-        public Motion motion;
-        public Image display;
+        [field:SerializeField] public float unlockTime { private set; get; } = 10f;
+        [field:SerializeField] public float loopTime { private set; get; } = 4f;
+        [field:SerializeField] public float damage { private set; get; } = 20f;
+        [field:SerializeField] public float stopValue { private set; get; } = 0f;
+        
+        [field:SerializeField] public float startAnimSpeed { private set; get; } = 1f;
+        
+        [field:SerializeField] public float incrementSpeedAnim { private set; get; } = 0.2f;
+        
+        [field:SerializeField] public string speedAnimationFloat { private set; get; }
+        [field:SerializeField] public string returnParameter { private set; get; }
+        [field:SerializeField] public Motion motion { private set; get; }
+        [field:SerializeField] public Image display { private set; get; }
     }
 
     [SerializeField] private LoopDependencies loopDependencies;
@@ -23,6 +29,10 @@ public class LoopAttack : Attack
         if (isAnimating || unlocking) return;
         StartCoroutine(MakingCombo());
         isAnimating = true;
+    }
+
+    public override float GetDamage() {
+        return loopDependencies.damage;
     }
 
     public override bool IsAnimating() {
@@ -38,26 +48,26 @@ public class LoopAttack : Attack
         animator.SetBool(loopDependencies.returnParameter,false);
         animator.Play(loopDependencies.motion.name);
         yield return new WaitForSeconds(0.02f);
+        SpeedAnimation(loopDependencies.incrementSpeedAnim,loopDependencies.speedAnimationFloat);
         while (currentTime > loopDependencies.stopValue) {
             loopDependencies.display.fillAmount = (currentTime / loopDependencies.loopTime);
             currentTime -= Time.deltaTime;
             yield return null;
         }
+        BackSpeed(loopDependencies.startAnimSpeed,loopDependencies.speedAnimationFloat);
         animator.SetBool(loopDependencies.returnParameter,true);
         
         StartCoroutine(UnlockAfterTime());
         isAnimating = false;
     }
 
-    protected override void InvokeAttackBind(InputAction.CallbackContext callbackContext) {
-        base.InvokeAttackBind(callbackContext);
-        if(callbackContext.canceled) {
-            unlocking = true;
-            isAnimating = false;
-            StopAllCoroutines();
-            animator.SetTrigger(loopDependencies.returnParameter);
-            StartCoroutine(UnlockAfterTime());
-        }
+    protected override void InvokeReleasedBind() {
+        unlocking = true;
+        isAnimating = false;
+        StopAllCoroutines();
+        BackSpeed(loopDependencies.startAnimSpeed,loopDependencies.speedAnimationFloat);
+        animator.SetTrigger(loopDependencies.returnParameter);
+        StartCoroutine(UnlockAfterTime());
     }
 
     private IEnumerator UnlockAfterTime() {
