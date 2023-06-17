@@ -1945,6 +1945,7 @@ MonoBehaviour:
   - {fileID: 719152711}
   patroling: 0
   waiting: 0
+  _stoppingDistance: 2
 --- !u!114 &1054210521
 MonoBehaviour:
   m_ObjectHideFlags: 0

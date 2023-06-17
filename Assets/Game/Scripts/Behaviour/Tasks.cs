@@ -22,6 +22,8 @@ public class Tasks : MonoBehaviour
     [SerializeField]
     bool waiting;
     int _patrolIndex;
+    [SerializeField]
+    float _stoppingDistance;
 
     private void Start()
     {
@@ -95,6 +97,14 @@ public class Tasks : MonoBehaviour
         }
     }
     [Task]
+    bool IsPlayerReached()
+    {
+        float distance = Vector3.Distance(transform.position, player.transform.position);
+        if (distance < 3f)
+            return true;
+        else return false;
+    }
+    [Task]
     bool IsWaiting()
     {
         if (patroling)
@@ -109,12 +119,20 @@ public class Tasks : MonoBehaviour
         ThisTask.Succeed();
     }
     [Task]
+    void AttackPlayer()
+    {
+        _animator.SetBool("Patroling", false);
+        _animator.Play("AttackMelee");
+        Task.current.Succeed();
+    }
+    [Task]
     void MoveToPlayer()
     {
-        Vector3 direction = player.transform.position - transform.position;
-        Vector3 offset = direction.normalized * 3f;
-        Vector3 newdest = player.transform.position + offset;
-        _agent.SetDestination(newdest);
+        _animator.SetBool("Patrolling", true);
+        Vector3 direction = transform.position - player.transform.position;
+        _agent.stoppingDistance = _stoppingDistance;
+        _agent.SetDestination(player.transform.position);
+        Task.current.Succeed();
     }
     void ChangePatrolPoint()
     {
@@ -125,10 +143,12 @@ public class Tasks : MonoBehaviour
     {
         _animator.SetBool("Patroling", patroling);
     }
+    
     void SetDestination()
     {
         if (_patrolWaypoints != null)
         {
+            _agent.stoppingDistance = 0;
             Vector3 targetVector = _patrolWaypoints[_patrolIndex].transform.position;
             _agent.SetDestination(targetVector);
         }
