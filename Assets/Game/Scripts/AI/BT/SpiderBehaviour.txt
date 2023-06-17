@@ -1,0 +1,19 @@
+tree "Root"
+    fallback
+        sequence
+            TaskPlayerIsInRange(100.0)
+            tree "Combat"
+        sequence
+            tree "Patrolling"
+    
+    
+tree "Patrolling"
+    sequence
+        RotateToNavMeshDestination()
+        TaskMoveToPatrolPoint()
+      
+tree "Combat"
+    sequence
+        RotateToPlayer()
+        Attack()
+        //TaskMoveToPlayer()

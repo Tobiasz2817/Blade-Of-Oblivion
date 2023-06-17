@@ -190,6 +190,74 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Combat"",
+            ""id"": ""7c246c02-5c94-42a7-b5c8-015d1c475db1"",
+            ""actions"": [
+                {
+                    ""name"": ""LeftAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""0828bf51-c0be-44a9-8c6d-f2cba3640aa7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Spin"",
+                    ""type"": ""Button"",
+                    ""id"": ""e67c213f-4cd3-45ce-8bcb-9b24022dcb65"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""74a7bb15-4ae8-4298-be32-68b33588170c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""5d4e30fc-049f-46e3-94c5-2b154b138bad"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c1aa25b6-a051-4d99-9b5c-177420ef9a1a"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Spin"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81d25edc-1fb1-4897-bb30-bb493451f50d"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -205,6 +273,11 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Look = m_Camera.FindAction("Look", throwIfNotFound: true);
+        // Combat
+        m_Combat = asset.FindActionMap("Combat", throwIfNotFound: true);
+        m_Combat_LeftAttack = m_Combat.FindAction("LeftAttack", throwIfNotFound: true);
+        m_Combat_Spin = m_Combat.FindAction("Spin", throwIfNotFound: true);
+        m_Combat_RightAttack = m_Combat.FindAction("RightAttack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -375,6 +448,55 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // Combat
+    private readonly InputActionMap m_Combat;
+    private ICombatActions m_CombatActionsCallbackInterface;
+    private readonly InputAction m_Combat_LeftAttack;
+    private readonly InputAction m_Combat_Spin;
+    private readonly InputAction m_Combat_RightAttack;
+    public struct CombatActions
+    {
+        private @Inputs m_Wrapper;
+        public CombatActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LeftAttack => m_Wrapper.m_Combat_LeftAttack;
+        public InputAction @Spin => m_Wrapper.m_Combat_Spin;
+        public InputAction @RightAttack => m_Wrapper.m_Combat_RightAttack;
+        public InputActionMap Get() { return m_Wrapper.m_Combat; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CombatActions set) { return set.Get(); }
+        public void SetCallbacks(ICombatActions instance)
+        {
+            if (m_Wrapper.m_CombatActionsCallbackInterface != null)
+            {
+                @LeftAttack.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnLeftAttack;
+                @LeftAttack.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnLeftAttack;
+                @LeftAttack.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnLeftAttack;
+                @Spin.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnSpin;
+                @Spin.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnSpin;
+                @Spin.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnSpin;
+                @RightAttack.started -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightAttack;
+                @RightAttack.performed -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightAttack;
+                @RightAttack.canceled -= m_Wrapper.m_CombatActionsCallbackInterface.OnRightAttack;
+            }
+            m_Wrapper.m_CombatActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LeftAttack.started += instance.OnLeftAttack;
+                @LeftAttack.performed += instance.OnLeftAttack;
+                @LeftAttack.canceled += instance.OnLeftAttack;
+                @Spin.started += instance.OnSpin;
+                @Spin.performed += instance.OnSpin;
+                @Spin.canceled += instance.OnSpin;
+                @RightAttack.started += instance.OnRightAttack;
+                @RightAttack.performed += instance.OnRightAttack;
+                @RightAttack.canceled += instance.OnRightAttack;
+            }
+        }
+    }
+    public CombatActions @Combat => new CombatActions(this);
     public interface ICharacterActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -388,5 +510,11 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     public interface ICameraActions
     {
         void OnLook(InputAction.CallbackContext context);
+    }
+    public interface ICombatActions
+    {
+        void OnLeftAttack(InputAction.CallbackContext context);
+        void OnSpin(InputAction.CallbackContext context);
+        void OnRightAttack(InputAction.CallbackContext context);
     }
 }

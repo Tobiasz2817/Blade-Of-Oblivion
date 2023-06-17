@@ -1,9 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class CharacterMovement : MonoBehaviour
@@ -11,6 +6,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float characterSpeed = 15f;
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Transform moveTarget;
+    [SerializeField] private CombatManager combat;
 
     private bool canMove = true;
     
@@ -38,7 +34,7 @@ public class CharacterMovement : MonoBehaviour
     }
 
     private void Update() {
-        if (!canMove) return;
+        if (!canMove || combat.IsCurrentAnimationBlockMovement()) return;
         var direction = (DirectionMovement.y * moveTarget.transform.forward + DirectionMovement.x * moveTarget.transform.right).normalized;
         characterController.Move(direction * characterSpeed * Time.deltaTime);
     }
