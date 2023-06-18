@@ -2687,6 +2687,7 @@ MonoBehaviour:
   name: 
   isOnCooldown: 0
   cooldownTime: 5
+  lastUsed: -1
 --- !u!114 &795363986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3371,6 +3372,7 @@ MonoBehaviour:
   name: BasicAttack
   isOnCooldown: 0
   cooldownTime: 3
+  lastUsed: -1
 --- !u!114 &1165076361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3387,7 +3389,7 @@ MonoBehaviour:
   animator: {fileID: 1165076359}
   singleAttack:
     <damage>k__BackingField: 0
-    <motion>k__BackingField: {fileID: -4437762146216260598, guid: 99e1a01620ef9f74a88d05a79d2f73a2, type: 3}
+    <motion>k__BackingField: {fileID: 7400000, guid: f9ca063d9110b6b499fd54594e5909e5, type: 2}
 --- !u!114 &1165076362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3403,6 +3405,7 @@ MonoBehaviour:
   name: OtherAttack
   isOnCooldown: 0
   cooldownTime: 5
+  lastUsed: -1
 --- !u!114 &1165076363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3419,7 +3422,7 @@ MonoBehaviour:
   animator: {fileID: 1165076359}
   singleAttack:
     <damage>k__BackingField: 0
-    <motion>k__BackingField: {fileID: 6080471368731690582, guid: 13f29acf11376c949bfa9770698520be, type: 3}
+    <motion>k__BackingField: {fileID: 7400000, guid: 18197b375f0ff1c48ad0930e0720d6dd, type: 2}
 --- !u!1 &1165579408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5966,15 +5969,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928421431792270623}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 1.622, z: -0.197}
+  m_LocalRotation: {x: -0, y: -0.9998634, z: -0, w: 0.016529933}
+  m_LocalPosition: {x: -3.015, y: 1.622, z: 0.7250002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1165076358}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -178.106, z: 0}
 --- !u!1 &571185245166936206
 GameObject:
   m_ObjectHideFlags: 0
@@ -6092,9 +6095,9 @@ GameObject:
   - component: {fileID: 928421431792270632}
   - component: {fileID: 928421431792270634}
   - component: {fileID: 928421431792270637}
-  - component: {fileID: 928421431792270636}
   - component: {fileID: 928421431792270638}
   - component: {fileID: 928421431792270639}
+  - component: {fileID: 928421431792270640}
   m_Layer: 0
   m_Name: Orc_Hunter1
   m_TagString: Untagged
@@ -6210,7 +6213,7 @@ MonoBehaviour:
   - isFoldout: 1
     breakPoints: 
     breakPointStatuses: 
-    collapsedLines: 
+    collapsedLines: 1200000016000000
     btScript: 
 --- !u!114 &928421431792270629
 MonoBehaviour:
@@ -6301,22 +6304,6 @@ MonoBehaviour:
       m_Calls: []
   maxHealth: 250
   currentHealth: 250
---- !u!114 &928421431792270636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928421431792270623}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3645ca44c890b8941986f069b71a9bec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attacks:
-  - {fileID: 1165076361}
-  - {fileID: 1165076363}
-  collisionMaker: {fileID: 0}
 --- !u!114 &928421431792270637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6354,6 +6341,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c06c4bd074ba964c95961adf1a99b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &928421431792270640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928421431792270623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e155386cb6baa5e4fba86a6b25b44c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attacks:
+  - {fileID: 1165076361}
+  - {fileID: 1165076363}
+  collisionMaker: {fileID: 0}
 --- !u!4 &934463211516719271
 Transform:
   m_ObjectHideFlags: 0
