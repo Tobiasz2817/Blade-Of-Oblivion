@@ -1540,7 +1540,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985372542}
   m_LocalRotation: {x: -0, y: 0.9974802, z: -0, w: 0.070945}
-  m_LocalPosition: {x: 0.164, y: 0, z: -13.527}
+  m_LocalPosition: {x: 0.16, y: 0, z: -13.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1584,9 +1584,9 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
+  m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1.4
   m_BaseOffset: 0
@@ -3753,7 +3753,7 @@ MonoBehaviour:
   combatInput: {fileID: 1985372559}
   animator: {fileID: 770193518956964901}
   singleAttack:
-    <damage>k__BackingField: 1000
+    <damage>k__BackingField: 10
     <motion>k__BackingField: {fileID: 7400000, guid: 44344cd820a8b0b40bcdeed199aec856, type: 2}
 --- !u!4 &6708203208496499218
 Transform:

@@ -15,5 +15,15 @@ tree "Patrolling"
 tree "Combat"
     sequence
         RotateToPlayer()
-        Attack()
+        //TaskMoveToPatrolPoint()
+        Attack("Wirek")
         //TaskMoveToPlayer()
+        
+tree "Combat123"
+    fallback
+        sequence
+            CooldownTime(2)
+            Attack("SuperXD")
+        sequence
+            CooldownTime(2)
+            Attack("SuperXD")        
