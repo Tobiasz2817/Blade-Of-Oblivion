@@ -1,8 +1,11 @@
 using Panda;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatEnemyInput : CombatInput
 {
-    [SerializeField] private string name;
-    
+    [SerializeField] public string name;
+    [SerializeField] public bool isOnCooldown;
+    [SerializeField] public float cooldownTime;
+    public float lastUsed = -1; 
 }
