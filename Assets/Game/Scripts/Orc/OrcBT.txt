@@ -1,25 +1,39 @@
 tree("Root")
 	fallback
-		tree("AttackPlayer")
-		//tree("Patrol")
-		//tree("Waiting")
-tree("Patrol")
-	while not IsWaiting()
-		sequence
-			TaskMoveToPatrolPoint()
-tree("Waiting")
-	while IsWaiting()
-		Waiting()
-tree("AttackPlayer")
-	while TaskPlayerIsInRange (100.0)
-		sequence
-			while TaskPlayerIsInRange(5.0)
-				fallback
-					while not IsOnCooldown("BasicAttack")
+		while Death()
+			sequence
+				Attack("Death")
+				Wait(3.0)
+				DisposeGameObject()
+		while HealthTrigger()
+			sequence
+				Attack("Taunt")
+				Wait(1.0)
+				Attack("Taunt")
+				Wait(1.0)
+				SummonHelper()
+		while TaskPlayerIsInRange(100.0)
+			fallback
+				while TaskPlayerIsInRange(5.0)
+					fallback	
+						while not IsOnCooldown("StrongAttack")
+							sequence
+								RotateToPlayer()
+								Attack("StrongAttack")
+								SetCooldown("StrongAttack")
+						while not IsOnCooldown("FastCombo")
+							sequence
+								RotateToPlayer()
+								Attack("FastCombo")
+								SetCooldown("FastCombo")
 						sequence
+							RotateToPlayer()
 							Attack("BasicAttack")
-							SetCooldown("BasicAttack")
-					while not IsOnCooldown("OtherAttack")
+				while not TaskPlayerIsInRange(5.0)
+					random
 						sequence
-							Attack("OtherAttack")
-							SetCooldown("OtherAttack")
+							Attack("Taunt")
+							Wait(1.0)
+						sequence
+							RotateToPlayer()
+							TaskMoveToPlayer()

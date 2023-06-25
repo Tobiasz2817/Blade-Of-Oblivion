@@ -1,0 +1,26 @@
+tree("Root")
+	fallback
+		while TaskPlayerIsInRange (30.0)
+			tree("AttackPlayer")
+		tree("Patrol")
+		tree("Waiting")
+
+tree("Patrol")
+	while not IsWaiting()
+		sequence
+			RotateToNavMeshDestination()
+			TaskMoveToPatrolPoint()
+
+tree("Waiting")
+	while IsWaiting()
+		Waiting()
+
+tree("AttackPlayer")
+	fallback
+		while TaskPlayerIsInRange (5.0)
+			parallel
+				RotateToPlayer()
+				Attack("BasicAttack")
+		parallel
+			RotateToPlayer()
+			TaskMoveToPlayer()
