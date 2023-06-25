@@ -1,8 +1,8 @@
 tree "Root"
     fallback
-        sequence
-            TaskPlayerIsInRange(100.0)
-            tree "Combat"
+        //sequence
+            //TaskPlayerIsInRange(100.0)
+            //tree "Combat"
         sequence
             tree "Patrolling"
     
@@ -16,14 +16,4 @@ tree "Combat"
     sequence
         RotateToPlayer()
         //TaskMoveToPatrolPoint()
-        Attack("Wirek")
         //TaskMoveToPlayer()
-        
-tree "Combat123"
-    fallback
-        sequence
-            CooldownTime(2)
-            Attack("SuperXD")
-        sequence
-            CooldownTime(2)
-            Attack("SuperXD")        

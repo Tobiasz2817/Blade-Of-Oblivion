@@ -19,7 +19,7 @@ public class MultiplySphereCollision : CollisionMaker
     public override void SendCollision(bool turnOffOnFirstCollision = true) {
         foreach (var sphereDependency in sphereDependencies) {
             var collisionCount = Physics.OverlapSphereNonAlloc(sphereDependency.spherePoint.position, sphereDependency.sphereRadius,this.colliders ,targetLayerMask);
-            if (collisionCount <= 0) return;
+            if (collisionCount <= 0) continue;
             OnTargetHit?.Invoke(potentiallyHit.SetCollisionHit(colliders[0]));
             if (turnOffOnFirstCollision) return;
         }

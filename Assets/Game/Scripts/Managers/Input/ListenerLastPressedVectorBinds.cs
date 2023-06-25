@@ -13,14 +13,17 @@ public class ListenerLastPressedVectorBinds : MonoBehaviour
     private void Start() {
         _bindDirection = new BindDirection();
         movementCharacterAction.action.Enable();
+        _bindDirection.bindValue = validateValue;
     }
     
     private void OnEnable() {
         movementCharacterAction.action.performed += ReadMovement;
+        movementCharacterAction.action.canceled += ReadMovement;
     }
     
     private void OnDisable() {
         movementCharacterAction.action.performed -= ReadMovement;
+        movementCharacterAction.action.canceled -= ReadMovement;
     }
 
     private void ReadMovement(InputAction.CallbackContext obj) {

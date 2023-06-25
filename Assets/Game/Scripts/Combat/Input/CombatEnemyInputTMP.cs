@@ -19,26 +19,3 @@ public class CombatEnemyInputTMP : MonoBehaviour
     }
 }
 
-
-public class Cooldown : MonoBehaviour
-{
-    private bool isCooldown = false;
-    
-    [Task]
-    public void CooldownTime(float time) {
-        if (!isCooldown) {
-            isCooldown = true;
-            StartCoroutine(CooldownCounter(time));
-            Task.current.Succeed();
-            return;
-        }
-        
-        
-        Task.current.Fail();
-    }
-    private IEnumerator CooldownCounter(float time)
-    {
-        yield return new WaitForSeconds(time);
-        isCooldown = false;
-    }
-}

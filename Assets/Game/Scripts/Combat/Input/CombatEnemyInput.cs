@@ -1,5 +1,4 @@
 using Panda;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CombatEnemyInput : CombatInput
@@ -7,5 +6,5 @@ public class CombatEnemyInput : CombatInput
     [SerializeField] public string name;
     [SerializeField] public bool isOnCooldown;
     [SerializeField] public float cooldownTime;
-    public float lastUsed = -1; 
+    public float lastUsed = -1;
 }

@@ -37,4 +37,13 @@ public class RotateToDirection : MonoBehaviour
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
     }
+    
+    private void RotateToBasedOnCorners() {
+        if (navMeshAgent.path.corners.Length < 2) return;
+        var index = 1;
+        var lookPos = (navMeshAgent.path.corners[index] - transform.position).normalized;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
+    }
 }
