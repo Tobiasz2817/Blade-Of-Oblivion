@@ -32,8 +32,8 @@ public class AttackState : MonoBehaviour
     
     private void EndAnim(Attack obj) {
         if (currentAttack == attacks[^1]) {
-            if (obj.GetType() == typeof(ComboAttack)) {
-                if (((ComboAttack)attacks[currentAttackIndex]).IsInvokeLastAnimation()) {
+            if (obj.GetType() == typeof(CombatAttack2)) {
+                if (((CombatAttack2)attacks[currentAttackIndex]).IsInvokeLastAnimation()) {
                     IsFinished = true;
                     IsAnimating = false;
                 }

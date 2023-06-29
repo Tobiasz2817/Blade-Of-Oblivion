@@ -4,7 +4,6 @@ using UnityEngine;
 public class RegenerateHealthAfterTime : RegenerateHealth
 {
     [SerializeField] private float regeneratingTime = 5f;
-    private bool isRegeneratingHealth = false;
 
     private void OnEnable() {
         health.OnTakeDamage.AddListener(OnGetDamage);
