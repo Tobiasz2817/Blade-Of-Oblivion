@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MoveToPlayer : Move
 {
-    [SerializeField] private float breakDistance = 2f;
+    [SerializeField] public float breakDistance = 3f;
     
     [Task]
     public void TaskMoveToPlayer() {

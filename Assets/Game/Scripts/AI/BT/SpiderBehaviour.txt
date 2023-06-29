@@ -1,19 +1,50 @@
 tree "Root"
     fallback
-        //sequence
-            //TaskPlayerIsInRange(100.0)
-            //tree "Combat"
+        sequence
+            TaskPlayerIsInObjRange()
+            fallback
+                sequence
+                    tree "AttackState01"
+                    tree "AttackState02"
+                    ResetStates()
+                SucceedExitState
         sequence
             tree "Patrolling"
-    
     
 tree "Patrolling"
     sequence
         RotateToNavMeshDestination()
         TaskMoveToPatrolPoint()
-      
-tree "Combat"
-    sequence
-        RotateToPlayer()
-        //TaskMoveToPatrolPoint()
-        //TaskMoveToPlayer()
+        
+               
+tree "AttackState01"  
+    fallback
+        sequence
+            while StateIsFinished("AttackState1")
+                SucceedExitState
+        sequence
+            while not StateIsFinished("AttackState1")
+                sequence    
+                   RotateToPlayer()
+                   while not IsAnimating("AttackState1")
+                        TaskMoveToPlayer()
+                   sequence
+                       TaskPlayerIsInRange(5.0)
+                       InvokeAnimations("AttackState1")
+        
+               
+tree "AttackState02"
+    fallback
+        sequence
+            while StateIsFinished("AttackState2")
+                SucceedExitState
+        sequence
+            while not StateIsFinished("AttackState2")
+                sequence    
+                   RotateToPlayer()
+                   while not IsAnimating("AttackState2")
+                        TaskMoveToPlayer()
+                   sequence
+                       TaskPlayerIsInRange(4.5)
+                       InvokeAnimations("AttackState2")     
+                       

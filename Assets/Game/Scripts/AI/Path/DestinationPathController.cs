@@ -12,63 +12,68 @@ public class DestinationPathController : MonoBehaviour
     
     private Vector3 direction;
     private List<Vector3> cornersList = new List<Vector3>();
-    private int currentIndex = -1;
+    private int currentIndex = 0;
 
     public bool TrySetNewDestination(Vector3 newDirection) {
         if (direction == newDirection) return false;
         this.direction = newDirection;
         agent.SetDestination(direction);
-        StartCoroutine(ta());
+        StopAllCoroutines();
+        StartCoroutine(MoveToPathCorners());
 
+        agent.path = new NavMeshPath();
+        
         return true;
     }
 
-    private IEnumerator ta() {
-        
+    private IEnumerator MoveToPathCorners() {
         yield return new WaitForSeconds(0.01f);
-        if (agent.hasPath) {
-            Debug.Log("YES");
-        }
-
         cornersList = agent.path.corners.ToList();
         agent.ResetPath();
+        SetIndex(0);
+        Debug.Log(cornersList.Count);
+        if(!TryIncrementIndex())
+            yield break;
+        
+        var index = GetIndex();
+        agent.SetDestination(cornersList[index]);
+        
+        while (true) {
+            yield return new WaitUntil(() => GetDistance(cornersList[GetIndex()],agent.transform.position,layerMask,agent.path) < breakDistance);
 
-        foreach (var VARIABLE in cornersList) {
-            Debug.Log(VARIABLE);
+            if(!TryIncrementIndex())
+                yield break;
+
+            agent.SetDestination(cornersList[GetIndex()]);
         }
 
-        agent.SetDestination(cornersList[currentIndex++]);
     }
 
-    private void Update() {
-        if (cornersList.Count <= 0) return;
-        
-        if (agent.hasPath) {
-            if (TryIncrementIndex()) {
-                agent.SetDestination(cornersList[currentIndex]);
-                Debug.Log("X");
-            }
-            else 
-                cornersList.Clear();
-        }
-
-        /*
-        if (GetDistance(cornersList[currentIndex], agent.transform.position, layerMask, agent.path) < breakDistance) {
-
-        }*/
+    public bool IsIndexOutOfRange(int index) {
+        return cornersList.Count - 1 > index ? true : false;
+    }
+    
+    public bool IsLastIndex(int index) {
+        return cornersList.Count - 1 == index ? true : false;
+    }
+    
+    public int GetIndex() {
+        return currentIndex;
     }
 
     public bool TryIncrementIndex() {
-        var index = currentIndex + 1;
-        Debug.Log(index);
-        Debug.Log(cornersList.Count);
+        var index = GetIndex() + 1;
 
         if (currentIndex < cornersList.Count - 1) {
-            currentIndex = index;
+            SetIndex(index);
             return true;
         }
 
         return false;
+    }
+    
+    public void SetIndex(int newIndex) {
+        currentIndex = newIndex;
     }
 
     public bool IsReachedDestination(Vector3 direction, float breakDistance) {

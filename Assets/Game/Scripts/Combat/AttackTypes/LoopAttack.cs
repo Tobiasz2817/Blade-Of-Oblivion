@@ -12,11 +12,7 @@ public class LoopAttack : Attack
         [field:SerializeField] public float loopTime { private set; get; } = 4f;
         [field:SerializeField] public float damage { private set; get; } = 20f;
         [field:SerializeField] public float stopValue { private set; get; } = 0f;
-        
-        [field:SerializeField] public float startAnimSpeed { private set; get; } = 1f;
-        
         [field:SerializeField] public float incrementSpeedAnim { private set; get; } = 0.2f;
-        
         [field:SerializeField] public string speedAnimationFloat { private set; get; }
         [field:SerializeField] public string returnParameter { private set; get; }
         [field:SerializeField] public AnimationClip animationClip { private set; get; }
@@ -55,7 +51,7 @@ public class LoopAttack : Attack
             currentTime -= Time.deltaTime;
             yield return null;
         }
-        BackSpeed(loopDependencies.startAnimSpeed,loopDependencies.speedAnimationFloat);
+        BackSpeed(loopDependencies.speedAnimationFloat);
         animator.SetBool(loopDependencies.returnParameter,true);
         StartCoroutine(UnlockAfterTime());
         isAnimating = false;
@@ -64,7 +60,7 @@ public class LoopAttack : Attack
     protected override void InvokeReleasedBind() {
         unlocking = true;
         StopAllCoroutines();
-        BackSpeed(loopDependencies.startAnimSpeed,loopDependencies.speedAnimationFloat);
+        BackSpeed(loopDependencies.speedAnimationFloat);
         animator.SetTrigger(loopDependencies.returnParameter);
         StartCoroutine(UnlockAfterTime());
         isAnimating = false;

@@ -3,8 +3,10 @@ using UnityEngine;
 public class CollisionActionDealDamage : CollisionActionHandler
 {
     [SerializeField] private DamageBasedHandler damageBasedHandler;
+    [SerializeField] private JumpInDirection rollingReference;
     
     public override void MakeAction(CollisionHit collisionHit) {
+        if (rollingReference.IsJumping) return;
         TakeDamage(collisionHit);
     }
     
