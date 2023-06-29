@@ -29,7 +29,7 @@ tree "AttackState01"
                    while not IsAnimating("AttackState1")
                         TaskMoveToPlayer()
                    sequence
-                       TaskPlayerIsInRange(5.0)
+                       TaskPlayerIsInRange(6.0)
                        InvokeAnimations("AttackState1")
         
                
