@@ -1,0 +1,25 @@
+tree("Root")
+	fallback
+		tree("AttackPlayer")
+		//tree("Patrol")
+		//tree("Waiting")
+tree("Patrol")
+	while not IsWaiting()
+		sequence
+			TaskMoveToPatrolPoint()
+tree("Waiting")
+	while IsWaiting()
+		Waiting()
+tree("AttackPlayer")
+	while TaskPlayerIsInRange (100.0)
+		sequence
+			while TaskPlayerIsInRange(5.0)
+				fallback
+					while not IsOnCooldown("BasicAttack")
+						sequence
+							Attack("BasicAttack")
+							SetCooldown("BasicAttack")
+					while not IsOnCooldown("OtherAttack")
+						sequence
+							Attack("OtherAttack")
+							SetCooldown("OtherAttack")

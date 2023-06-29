@@ -55,10 +55,3 @@ public class RollingCharacterAnimation : MonoBehaviour
     }
 }
 
-public enum RollingStates
-{
-    Backward = -1,
-    Forward = 1,
-    Left = -2,
-    Right = 2
-}
