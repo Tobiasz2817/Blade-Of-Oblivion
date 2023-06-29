@@ -1374,7 +1374,7 @@ MonoBehaviour:
   animator: {fileID: 3983333714390216079}
   singleAttack:
     <damage>k__BackingField: 0
-    <breakTime>k__BackingField: 0.2
+    <breakTime>k__BackingField: 0.3
     <animationClip>k__BackingField: {fileID: 7400000, guid: 94a035421ffc0d84f93490efffde4e23, type: 2}
 --- !u!114 &3983333714390216082
 MonoBehaviour:
@@ -1393,7 +1393,7 @@ MonoBehaviour:
   animator: {fileID: 3983333714390216079}
   singleAttack:
     <damage>k__BackingField: 0
-    <breakTime>k__BackingField: 0.2
+    <breakTime>k__BackingField: 0.3
     <animationClip>k__BackingField: {fileID: 7400000, guid: d086fe8533c4f3a4fa98ee7675a73f1b, type: 2}
 --- !u!114 &3983333714390216081
 MonoBehaviour:
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   animator: {fileID: 3983333714390216079}
   singleAttack:
     <damage>k__BackingField: 0
-    <breakTime>k__BackingField: 0.2
+    <breakTime>k__BackingField: 0.3
     <animationClip>k__BackingField: {fileID: 7400000, guid: 50841b6a81f434d4fa8f44197f9fd16b, type: 2}
 --- !u!114 &3983333714390216080
 MonoBehaviour:
@@ -1431,7 +1431,7 @@ MonoBehaviour:
   animator: {fileID: 3983333714390216079}
   singleAttack:
     <damage>k__BackingField: 0
-    <breakTime>k__BackingField: 0.2
+    <breakTime>k__BackingField: 0.3
     <animationClip>k__BackingField: {fileID: 7400000, guid: 06e92e830c195384a828582396034b37, type: 2}
 --- !u!114 &8773452277287224877
 MonoBehaviour:
@@ -6789,7 +6789,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793368e3714fd834a9b9d0f82785ca2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterSpeed: 5
+  characterSpeed: 4
+  sprintCharacterSpeed: 7.5
+  gravity: 7.5
   characterController: {fileID: 5609211908432866383}
   moveTarget: {fileID: 8773452276238856861}
   combat: {fileID: 8773452277287224875}
@@ -6811,6 +6813,7 @@ MonoBehaviour:
   rotateSpeed: 25
   rotateTarget: {fileID: 8773452276238856861}
   rotateTo: {fileID: 0}
+  rollingReference: {fileID: 8773452277287224893}
 --- !u!114 &8773452277287224886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6981,6 +6984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageBasedHandler: {fileID: 5609211908545689548}
+  rollingReference: {fileID: 8773452277287224893}
 --- !u!114 &5609211908545689548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7032,6 +7036,33 @@ MonoBehaviour:
       value: -0
       inSlope: 0
       outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.19998723
+      value: 0.4938863
+      inSlope: 0.45821592
+      outSlope: 0.45821592
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.63124937
+      value: 0.5661984
+      inSlope: 0.39656502
+      outSlope: 0.39656502
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.92937195
+      value: 0.80872643
+      inSlope: 1.1764091
+      outSlope: 1.1764091
       tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
