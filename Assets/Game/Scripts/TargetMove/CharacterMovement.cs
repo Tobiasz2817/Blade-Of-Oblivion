@@ -58,10 +58,13 @@ public class CharacterMovement : MonoBehaviour
     }
 
     private void Falling() {
-        if (!characterController.isGrounded) {
+        if (!characterController.isGrounded)
+        {
             velocity.y -= gravity * Time.deltaTime;
             characterController.Move(velocity * Time.deltaTime);
         }
+        else
+            velocity = Vector3.zero;
     }
 
     private void MoveTowards() {
