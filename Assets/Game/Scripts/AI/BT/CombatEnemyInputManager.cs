@@ -21,14 +21,11 @@ public class CombatEnemyInputManager : MonoBehaviour
     }
     [Task]
     public void Attack(string name)
-    {
-        if (!combatManager.IsSomeAttackInvoke() && animator.IsInTransition(0))
+    {           
+        if (!combatManager.IsSomeAttackInvoke())
         {
             input[name].OnPress?.Invoke();
-            if (animator.IsInTransition(0))
-            {
                 Task.current.Succeed();
-            }
         }
     }
     [Task]

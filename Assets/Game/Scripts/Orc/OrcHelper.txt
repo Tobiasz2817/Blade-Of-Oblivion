@@ -1,0 +1,18 @@
+tree("Root")
+	fallback
+		while Death()
+			sequence
+				Attack("Death")
+				Wait(3.0)
+				DisposeGameObject()
+		while GetActivated()
+			tree("AttackPlayer")
+tree("AttackPlayer")
+	fallback
+		while TaskPlayerIsInRange (5.0)
+			sequence
+				RotateToPlayer()
+				Attack("BasicAttack")
+		sequence
+			RotateToPlayer()
+			TaskMoveToPlayer()
