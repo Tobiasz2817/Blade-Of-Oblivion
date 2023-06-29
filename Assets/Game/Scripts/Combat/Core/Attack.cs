@@ -13,6 +13,11 @@ public abstract class Attack : MonoBehaviour
     public Action<Attack> OnExecuteAnimAttack;
     protected bool isAnimating = false;
 
+    [field:SerializeField] public float startMotionSpeed { private set; get; } = 1f;
+    //[field:SerializeField] public float incrementSpeedAnim { private set; get; } = 0.2f;
+    //[field:SerializeField] public string speedAnimationFloat { private set; get; }
+
+
     [SerializeField] protected CombatInput combatInput;
     [SerializeField] protected Animator animator;
 
@@ -38,18 +43,18 @@ public abstract class Attack : MonoBehaviour
     }
     
     public void AnimTriggerHandler() {
-        if (!IsAnimating()) return;
+        if (!IsAnimating()) 
+            return;
         OnTriggerEvent?.Invoke(this);
     }
 
     protected void SpeedAnimation(float increaseSpeedBy, string nameParameter) {
-        var animInfo = animator.GetCurrentAnimatorStateInfo(0);
-        var speed = animInfo.speed + (animInfo.speed * increaseSpeedBy); 
+        var speed = startMotionSpeed + (startMotionSpeed * increaseSpeedBy); 
         animator.SetFloat(nameParameter,speed);
     }
 
-    protected void BackSpeed(float oldValue, string nameParameter) {
-        animator.SetFloat(nameParameter,oldValue);
+    protected void BackSpeed(string nameParameter) {
+        animator.SetFloat(nameParameter,startMotionSpeed);
     }
     
     protected IEnumerator StopBeforeSomeTime(float breakTimeCombo) {
@@ -100,6 +105,7 @@ public class CountMousePress
     public bool ButtonWasPressedLastTime(float duration) {
         var currentTime = Time.time;
 
+        if (pressTimer.Values.Count <= 0) return false;
         if (currentTime - pressTimer.Values.Last() < duration)
             return true;
         

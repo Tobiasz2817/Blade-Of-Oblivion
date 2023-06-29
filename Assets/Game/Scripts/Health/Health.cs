@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     public UnityEvent<float> OnHealthUpdate;
+    public UnityEvent<float> OnTakeDamage;
     public UnityEvent<float> OnMaxHealthUpdate;
     
     [SerializeField] private float maxHealth = 100;
@@ -25,6 +26,6 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage) {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
-        OnHealthUpdate?.Invoke(currentHealth);
+        OnTakeDamage?.Invoke(currentHealth);
     }
 }

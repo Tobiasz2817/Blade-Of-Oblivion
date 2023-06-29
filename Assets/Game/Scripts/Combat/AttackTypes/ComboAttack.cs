@@ -16,16 +16,14 @@ public class ComboAttack : Attack
         [field:SerializeField] public float damage { private set; get; }
         [field:SerializeField] public float breakTime { private set; get; } = 0.2f;
         [field:SerializeField] public float incrementSpeedAnim { private set; get; } = 0.2f;
-        [field:SerializeField] public float startMotionSpeed { private set; get; } = 1f;
         [field:SerializeField] public string speedAnimationFloat { private set; get; }
         [field:SerializeField] public AnimationClip animationClip { private set; get; }
     }
 
-    [SerializeField]
-    protected List<ComboDependencies> comboDependenciesList = new List<ComboDependencies>();
-
+    [SerializeField] private bool basedOnMousePressing = false;
+    [SerializeField] protected List<ComboDependencies> comboDependenciesList = new List<ComboDependencies>();
     private ComboDependencies currentDependencies;
-    
+
     private void Start() {
         countMousePress = new CountMousePress();
         comboDependenciesList = comboDependenciesList.OrderBy((valeus) => valeus.priorty).ToList();
@@ -58,8 +56,9 @@ public class ComboAttack : Attack
             yield return new WaitForSeconds(0.02f);
             //if (attack.animationClip == comboDependenciesList.Last().animationClip) yield return WaitForEndAnimation(attack.animationClip.name);
             yield return StopBeforeSomeTime(attack.breakTime);
-            BackSpeed(attack.startMotionSpeed,attack.speedAnimationFloat);
+            BackSpeed(attack.speedAnimationFloat);
             OnExecuteAnimAttack?.Invoke(this);
+            if(!basedOnMousePressing) continue;
             if (!countMousePress.ButtonWasPressedLastTime(0.3f)) break;
         }
         
@@ -69,11 +68,18 @@ public class ComboAttack : Attack
     }
     
     private void IncrementPress() {
+        if (!basedOnMousePressing) return;
         countMousePress.IncrementPressing();
     }
     
     protected override void InvokePressBind() {
         base.InvokePressBind();
         IncrementPress();
+    }
+
+    public bool IsInvokeLastAnimation() {
+        if (currentDependencies == null) return false;
+
+        return currentDependencies == comboDependenciesList[^1];
     }
 }

@@ -16,11 +16,18 @@ public class SingleAttack : Attack
     
     public override void MakingAttack() {
         StartCoroutine(MakingCombo());
-        isAnimating = true;
     }
 
     public override float GetDamage() {
         return singleAttack.damage;
+    }
+    
+    public AnimationClip GetAnimationClip() {
+        return singleAttack.animationClip;
+    }
+    
+    public float GetBreakTime() {
+        return singleAttack.breakTime;
     }
 
     public override bool IsAnimating() {
@@ -31,7 +38,8 @@ public class SingleAttack : Attack
         return true;
     }
 
-    private IEnumerator MakingCombo() {
+    public IEnumerator MakingCombo() {
+        isAnimating = true;
         animator.Play(singleAttack.animationClip.name);
         OnStartAnimAttack?.Invoke(this);
         yield return new WaitForSeconds(0.02f);
