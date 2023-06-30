@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,16 +10,24 @@ public class CombatManager : MonoBehaviour
     private bool processingHit = false;
 
     private Attack currentAttack;
-    private void Start() {
+    private void Awake() {
         if (isGettingReferencesFromChild)
             GetAttackReferencesFromChild();
-        
+    }
+
+    private void OnEnable() {
         SubscribeEventsFromList();
     }
 
     public void SubscribeEventsFromList() {
         foreach (var attacking in attacks) {
             attacking.OnPressedBind += DoSomething;
+        }
+    }
+
+    private void OnDisable() {
+        foreach (var attacking in attacks) {
+            attacking.OnPressedBind -= DoSomething;
         }
     }
 
@@ -54,6 +63,7 @@ public class CombatManager : MonoBehaviour
 
         return false;
     }
+    
 
     public float GetAnimationDamage() {
         return currentAttack != null ? currentAttack.GetDamage() : 0f;

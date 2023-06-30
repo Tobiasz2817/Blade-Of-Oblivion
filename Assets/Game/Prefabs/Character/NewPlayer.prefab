@@ -6539,7 +6539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 5609211908620433887}
-  regenerateSpeed: 20
+  regenerateSpeed: 35
   regeneratingTime: 5
 --- !u!1 &5609211910326138845
 GameObject:
@@ -6720,6 +6720,7 @@ GameObject:
   - component: {fileID: 5609211908545689549}
   - component: {fileID: 8773452277287224893}
   - component: {fileID: 8773452277287224894}
+  - component: {fileID: 1613862403}
   m_Layer: 6
   m_Name: NewPlayer
   m_TagString: Player
@@ -6890,6 +6891,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331513274387b9a45bb2a2811581239b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 5609211908620433887}
 --- !u!114 &5609211908620433887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7104,3 +7106,18 @@ MonoBehaviour:
     rollingState: -2
   - rollingAnimSide: {fileID: 3983333714390216083}
     rollingState: 2
+--- !u!114 &1613862403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8773452276238856860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f09c9921cda2b4691c4fc060a53b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}

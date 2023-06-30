@@ -29,8 +29,8 @@ public abstract class Attack : MonoBehaviour
 
     protected virtual void OnDisable() {
         if (combatInput == null) return;
-        combatInput.OnPress += InvokePressBind;
-        combatInput.OnRealesed += InvokeReleasedBind;
+        combatInput.OnPress -= InvokePressBind;
+        combatInput.OnRealesed -= InvokeReleasedBind;
     }
     
     

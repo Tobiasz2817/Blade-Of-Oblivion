@@ -1,12 +1,16 @@
 tree "Root"
     fallback
         sequence
+            not IsPlayerDead()
             TaskPlayerIsInObjRange()
             fallback
                 sequence
                     tree "AttackState01"
                     tree "AttackState02"
                     ResetStates()
+                    ResetPath()
+                    InvokeAnim("Buff")
+                    Wait(1.2)
                 SucceedExitState
         sequence
             tree "Patrolling"
@@ -25,9 +29,13 @@ tree "AttackState01"
         sequence
             while not StateIsFinished("AttackState1")
                 sequence    
-                   RotateToPlayer()
-                   while not IsAnimating("AttackState1")
-                        TaskMoveToPlayer()
+                    fallback            
+                        while IsAnimating("AttackState1")  
+                            RotateToPlayerWithSpeed(4.0)
+                        while not IsAnimating("AttackState1")
+                            sequence
+                                TaskMoveToPlayer()
+                                RotateToPlayerWithSpeed(8.0)   
                    sequence
                        TaskPlayerIsInRange(6.0)
                        InvokeAnimations("AttackState1")
@@ -40,10 +48,14 @@ tree "AttackState02"
                 SucceedExitState
         sequence
             while not StateIsFinished("AttackState2")
-                sequence    
-                   RotateToPlayer()
-                   while not IsAnimating("AttackState2")
-                        TaskMoveToPlayer()
+                sequence  
+                    fallback            
+                        while IsAnimating("AttackState2")  
+                            RotateToPlayerWithSpeed(4.0)
+                        while not IsAnimating("AttackState2")
+                            sequence
+                                TaskMoveToPlayer()
+                                RotateToPlayerWithSpeed(8.0)                                                    
                    sequence
                        TaskPlayerIsInRange(4.5)
                        InvokeAnimations("AttackState2")     

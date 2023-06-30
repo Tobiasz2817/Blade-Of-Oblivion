@@ -21,8 +21,9 @@ public class BossTriggers : MonoBehaviour
     [Task]
     public void SummonHelper()
     {
-        GameObject helper = GameObject.FindGameObjectWithTag("BossHelper");
-        helper.gameObject.GetComponent<ActivateHelper>().SetActivate();
+        GameObject[] helpers = GameObject.FindGameObjectsWithTag("BossHelper");
+        foreach(var helper in helpers)
+            helper.gameObject.GetComponent<ActivateHelper>().SetActivate();
         activated = true;
     }    
 }

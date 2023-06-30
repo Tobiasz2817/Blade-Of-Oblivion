@@ -12,7 +12,7 @@ tree("Root")
 				Attack("Taunt")
 				Wait(1.0)
 				SummonHelper()
-		while TaskPlayerIsInRange(100.0)
+		while TaskPlayerIsInRange(20.0)
 			fallback
 				while TaskPlayerIsInRange(5.0)
 					fallback	

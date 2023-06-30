@@ -258,6 +258,34 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Game"",
+            ""id"": ""b1301866-c998-4ba5-8f3c-26108641efb3"",
+            ""actions"": [
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""96fed344-7723-46d8-81e7-0c617920e840"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""fb609f54-8125-4d79-8d53-5085077d928c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -278,6 +306,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_Combat_LeftAttack = m_Combat.FindAction("LeftAttack", throwIfNotFound: true);
         m_Combat_Spin = m_Combat.FindAction("Spin", throwIfNotFound: true);
         m_Combat_RightAttack = m_Combat.FindAction("RightAttack", throwIfNotFound: true);
+        // Game
+        m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
+        m_Game_Exit = m_Game.FindAction("Exit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -497,6 +528,39 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         }
     }
     public CombatActions @Combat => new CombatActions(this);
+
+    // Game
+    private readonly InputActionMap m_Game;
+    private IGameActions m_GameActionsCallbackInterface;
+    private readonly InputAction m_Game_Exit;
+    public struct GameActions
+    {
+        private @Inputs m_Wrapper;
+        public GameActions(@Inputs wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Exit => m_Wrapper.m_Game_Exit;
+        public InputActionMap Get() { return m_Wrapper.m_Game; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameActions set) { return set.Get(); }
+        public void SetCallbacks(IGameActions instance)
+        {
+            if (m_Wrapper.m_GameActionsCallbackInterface != null)
+            {
+                @Exit.started -= m_Wrapper.m_GameActionsCallbackInterface.OnExit;
+                @Exit.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnExit;
+                @Exit.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnExit;
+            }
+            m_Wrapper.m_GameActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
+            }
+        }
+    }
+    public GameActions @Game => new GameActions(this);
     public interface ICharacterActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -516,5 +580,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         void OnLeftAttack(InputAction.CallbackContext context);
         void OnSpin(InputAction.CallbackContext context);
         void OnRightAttack(InputAction.CallbackContext context);
+    }
+    public interface IGameActions
+    {
+        void OnExit(InputAction.CallbackContext context);
     }
 }
