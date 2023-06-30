@@ -15,6 +15,7 @@ public class DamageInjection : MonoBehaviour
     }
 
     private void MakeAction(CollisionHit collisionHit) {
+        Debug.Log("Make Action Kutas");
         collisionActionHandlers.ForEach((action) => action.MakeAction(collisionHit));
     }
 }
