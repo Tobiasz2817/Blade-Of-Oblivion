@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField] List<Transform> spawnPoints;
+    [SerializeField] List<Transform> spawnPoints; 
+    CombatManager combatManager;
+    CharacterMovement characterMovement;
     Animator animator;
     Health health;
     bool corRunning;
@@ -13,20 +15,24 @@ public class Respawn : MonoBehaviour
     {
         animator = this.GetComponentInChildren<Animator>();
         health = this.GetComponent<Health>();
+        combatManager = GetComponent<CombatManager>();
+        characterMovement = GetComponent<CharacterMovement>();
     }
     private void Update()
     {
         if (health.GetHealth() <= 0 && !corRunning)
         {
             corRunning = true;
-            Debug.Log("Zginolesi");
+            characterMovement.enabled = false;
+            combatManager.enabled = false;
+            //Debug.Log("Zginolesi");
             StartCoroutine(Die());
         }
     }
     IEnumerator Die()
     {
         animator.Play("Death");
-        Debug.Log("Umar³eœ, spróbuj jeszcze raz");
+        //Debug.Log("Umarï¿½eï¿½, sprï¿½buj jeszcze raz");
         yield return new WaitForSeconds(5f);
         Resurect();
         corRunning = false;
@@ -35,6 +41,8 @@ public class Respawn : MonoBehaviour
     void Resurect()
     {
         this.transform.position = GetResurectPosition();
+        characterMovement.enabled = true;
+        combatManager.enabled = true;
         health.ExpandCurrentHealth(health.GetMaxHealth());
     }
     Vector3 GetResurectPosition()

@@ -21,21 +21,32 @@ public class RotateToDirection : MonoBehaviour
             return;
         }
         
-        RotateTo(PlayerSingleton.Instance.GetPosition().position);
+        RotateTo(PlayerSingleton.Instance.GetPosition().position, rotateSpeed);
+        Task.current.Succeed();
+    }
+    
+    [Task]
+    public void RotateToPlayerWithSpeed(float speed) {
+        if (!PlayerSingleton.Instance) {
+            Task.current.Fail();
+            return;
+        }
+        
+        RotateTo(PlayerSingleton.Instance.GetPosition().position,speed);
         Task.current.Succeed();
     }
 
     [Task]
     public void RotateToNavMeshDestination() {
-        RotateTo(navMeshAgent.destination);
+        RotateTo(navMeshAgent.destination,rotateSpeed);
         Task.current.Succeed();
     }
 
-    private void RotateTo(Vector3 direction) {
+    private void RotateTo(Vector3 direction, float speed) {
         var lookPos = (direction - transform.position).normalized;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * rotateSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * speed);
     }
     
     private void RotateToBasedOnCorners() {

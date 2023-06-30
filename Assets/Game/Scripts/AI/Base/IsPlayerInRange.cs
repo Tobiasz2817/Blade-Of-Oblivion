@@ -5,6 +5,20 @@ public class IsPlayerInRange : MonoBehaviour
 {
     [SerializeField] private BoxCollider range;
     [SerializeField] private MoveToPlayer moveToPlayer;
+    [SerializeField] private Animator anim;
+
+    [Task]
+    public bool IsPlayerDead() {
+        if (!PlayerSingleton.Instance || !PlayerSingleton.Instance.playerHealth ||
+            PlayerSingleton.Instance.playerHealth.GetHealth() <= 0) {
+            Task.current.Succeed();
+            anim.Play("Movement");
+            return true;
+        }
+        
+        Task.current.Fail();
+        return false;
+    }
     
     
     [Task]
