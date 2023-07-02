@@ -11,7 +11,8 @@ public class SmoothAlphaObjects : MonoBehaviour
     [Range(0.1f,1f)] [SerializeField] private float waitingTimeDuration = 0.8f;
     [SerializeField] private float duration = 2f;
     private int currentIndexCanvasOn = 0;
-    
+
+    private Coroutine coroutine;
     private void Start() {
         if (canvasGroups.Count > 0) currentIndexCanvasOn = 0;
         else this.enabled = false;
@@ -21,11 +22,12 @@ public class SmoothAlphaObjects : MonoBehaviour
     }
 
     private void OnEnable() {
-        StartCoroutine(SwampAlphaImage());
+        coroutine = StartCoroutine(SwampAlphaImage());
     }
 
     private void OnDisable() {
-        StopAllCoroutines();
+        if(coroutine != null)
+            StopCoroutine(coroutine);
     }
 
     private IEnumerator SwampAlphaImage() {

@@ -18,9 +18,6 @@ public class TargetRotateCharacter : MonoBehaviour
     private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
-    
-
-
 
     public void RotateCharacter() {
         if (rollingReference.IsJumping) return;

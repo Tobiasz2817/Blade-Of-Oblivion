@@ -14,8 +14,6 @@ public abstract class Attack : MonoBehaviour
     protected bool isAnimating = false;
 
     [field:SerializeField] public float startMotionSpeed { private set; get; } = 1f;
-    //[field:SerializeField] public float incrementSpeedAnim { private set; get; } = 0.2f;
-    //[field:SerializeField] public string speedAnimationFloat { private set; get; }
 
 
     [SerializeField] protected CombatInput combatInput;
