@@ -53,6 +53,15 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""E"",
+                    ""type"": ""Button"",
+                    ""id"": ""6dfa2aaf-12f3-45c2-9ecd-b83cdc9a8a1d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -130,6 +139,17 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Roll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61d716bf-23db-4e3f-93fb-21cde7643ed9"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""E"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -295,6 +315,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
         m_Character_Sprint = m_Character.FindAction("Sprint", throwIfNotFound: true);
         m_Character_Roll = m_Character.FindAction("Roll", throwIfNotFound: true);
+        m_Character_E = m_Character.FindAction("E", throwIfNotFound: true);
         // Environment
         m_Environment = asset.FindActionMap("Environment", throwIfNotFound: true);
         m_Environment_Raycast = m_Environment.FindAction("Raycast", throwIfNotFound: true);
@@ -371,6 +392,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_Movement;
     private readonly InputAction m_Character_Sprint;
     private readonly InputAction m_Character_Roll;
+    private readonly InputAction m_Character_E;
     public struct CharacterActions
     {
         private @Inputs m_Wrapper;
@@ -378,6 +400,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Character_Movement;
         public InputAction @Sprint => m_Wrapper.m_Character_Sprint;
         public InputAction @Roll => m_Wrapper.m_Character_Roll;
+        public InputAction @E => m_Wrapper.m_Character_E;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -396,6 +419,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Roll.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnRoll;
                 @Roll.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnRoll;
                 @Roll.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnRoll;
+                @E.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnE;
+                @E.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnE;
+                @E.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnE;
             }
             m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
@@ -409,6 +435,9 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
                 @Roll.started += instance.OnRoll;
                 @Roll.performed += instance.OnRoll;
                 @Roll.canceled += instance.OnRoll;
+                @E.started += instance.OnE;
+                @E.performed += instance.OnE;
+                @E.canceled += instance.OnE;
             }
         }
     }
@@ -566,6 +595,7 @@ public partial class @Inputs : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnRoll(InputAction.CallbackContext context);
+        void OnE(InputAction.CallbackContext context);
     }
     public interface IEnvironmentActions
     {

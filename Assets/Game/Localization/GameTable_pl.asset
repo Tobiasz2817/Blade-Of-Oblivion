@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameTable_pl
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: pl
+  m_SharedData: {fileID: 11400000, guid: 13351d44fa23bf545bfa7b82c249d88a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 124665704448
+    m_Localized: Graj
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743459762176
+    m_Localized: "Wyjd\u017A"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 292724522901504
+    m_Localized: "Ostrze\u017Cenie: Niebezpiecze\u0144stwo!\n\nMieszka\u0144cy miasta
+      i okolicznych wiosek alarmuj\u0105!\nW lesie pojawi\u0142 si\u0119 ogromny
+      czarny paj\u0105k, kt\xF3ry spustoszy\u0142 okoliczn\u0105 wiosk\u0119. \nZaleca
+      si\u0119 unikanie odwiedzania tego obszaru dla w\u0142asnego bezpiecze\u0144stwa!\n\nDla
+      do\u015Bwiadczonego \u0142owcy potwor\xF3w przewidywana jest nagroda za pokonanie
+      bestii!\n\u015Amia\u0142ka kt\xF3remu to si\u0119 uda nagrodzi sam kr\xF3l!\n\nPotrzebna
+      pomoc!\n\nNa zamkowym placu pojawi\u0142 si\u0119 dow\xF3dca ork\xF3w wraz
+      z ma\u0142ym oddzia\u0142em, kt\xF3ry stawia wyzwanie ka\u017Cdemu,\nkto jest
+      w stanie podj\u0105\u0107 z nim walk\u0119!\nNie jest to jednak pierwszy lepszy
+      ork, tylko pot\u0119\u017Cny, zaprawiony w boju wojownik. \nCzeka na odwa\u017Cnych
+      \u015Bmia\u0142k\xF3w na placu z ty\u0142u zamku. Za pokonanie go przys\u0142uguje
+      nagroda od kr\xF3la!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

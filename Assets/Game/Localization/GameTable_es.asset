@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameTable_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: 13351d44fa23bf545bfa7b82c249d88a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 124665704448
+    m_Localized: Jugar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743459762176
+    m_Localized: Dejar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 292724522901504
+    m_Localized: "Advertencia: \xA1Peligro!\n\n\xA1Los habitantes de la ciudad y
+      de los pueblos cercanos est\xE1n dando la se\xF1al de alarma!\nHa aparecido
+      una ara\xF1a negra gigante en el bosque, causando estragos en el pueblo cercano.\nSe
+      recomienda encarecidamente evitar visitar esta \xE1rea por su propia seguridad.\n\n\xA1Para
+      un experimentado cazador de monstruos, se ofrece una recompensa por derrotar
+      a la bestia!\n\xA1El valiente que logre esta haza\xF1a ser\xE1 recompensado
+      por el rey en persona!\n\nDesaf\xEDo de Batalla:\n\nEn la plaza del castillo,
+      ha aparecido un comandante de orcos con un peque\xF1o destacamento, desafiando
+      a cualquiera\nque pueda enfrentarse a \xE9l en batalla.\nSin embargo, no es
+      un orco cualquiera; es un poderoso guerrero curtido en la batalla.\n\xC9l espera
+      a los valientes desafiantes en la plaza detr\xE1s del castillo. \xA1Una recompensa
+      del rey espera a aquellos que puedan derrotarlo!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

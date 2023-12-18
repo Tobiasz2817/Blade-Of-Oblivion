@@ -10,8 +10,15 @@ public class SpiderHealthController : MonoBehaviour
     public NavMeshAgent agent;
     public CombatManager combatManager;
     public CapsuleCollider collider;
+    public Animator anim;
 
     private bool isDead = false;
+    
+    private IEnumerator WaitT() {
+        yield return new WaitForSeconds(1.5f);
+        anim.enabled = false;
+    }
+    
     private IEnumerator Wait() {
         yield return new WaitForSeconds(10f);
         Destroy(gameObject);
@@ -25,6 +32,8 @@ public class SpiderHealthController : MonoBehaviour
             agent.enabled = false;
             collider.enabled = false;
             combatManager.enabled = false;
+            
+            StartCoroutine(WaitT());
             StartCoroutine(Wait());
 
             isDead = true;

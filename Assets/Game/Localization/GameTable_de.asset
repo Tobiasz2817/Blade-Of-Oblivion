@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: GameTable_de
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: de
+  m_SharedData: {fileID: 11400000, guid: 13351d44fa23bf545bfa7b82c249d88a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 124665704448
+    m_Localized: Spielen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 743459762176
+    m_Localized: Verlassen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 292724522901504
+    m_Localized: "Achtung: Gefahr!\n\nDie Bewohner der Stadt und der umliegenden
+      D\xF6rfer schlagen Alarm!\nIn dem Wald ist eine riesige schwarze Spinne aufgetaucht
+      und hat das nahegelegene Dorf verw\xFCstet.\nEs wird dringend davon abgeraten,
+      dieses Gebiet aus Sicherheitsgr\xFCnden zu betreten!\n\nF\xFCr einen erfahrenen
+      Monsterj\xE4ger wird eine Belohnung f\xFCr die Bezwingung des Ungeheuers angeboten!\nDer
+      Tapfere, der diese Tat vollbringt, wird vom K\xF6nig h\xF6chstpers\xF6nlich
+      belohnt!\n\nKampfansage!\n\nAuf dem Schlossplatz ist ein Ork-Kommandant mit
+      einer kleinen Einheit aufgetaucht und fordert jeden heraus,\nder es mit ihm
+      im Kampf aufnehmen kann!\nEs handelt sich jedoch nicht um irgendeinen Ork;
+      er ist ein m\xE4chtiger, kampferprobter Krieger.\nEr wartet auf mutige Herausforderer
+      auf dem Platz hinter dem Schloss. Eine Belohnung des K\xF6nigs erwartet diejenigen,
+      die ihn besiegen k\xF6nnen!"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
