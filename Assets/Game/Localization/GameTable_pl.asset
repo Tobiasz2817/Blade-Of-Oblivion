@@ -41,6 +41,14 @@ MonoBehaviour:
       nagroda od kr\xF3la!"
     m_Metadata:
       m_Items: []
+  - m_Id: 5120183385960448
+    m_Localized: "Wzn\xF3w"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5120252113825792
+    m_Localized: Pauza
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

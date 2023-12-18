@@ -41,6 +41,14 @@ MonoBehaviour:
       del rey espera a aquellos que puedan derrotarlo!"
     m_Metadata:
       m_Items: []
+  - m_Id: 5120183385960448
+    m_Localized: Reanudar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5120252113825792
+    m_Localized: Pausa
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

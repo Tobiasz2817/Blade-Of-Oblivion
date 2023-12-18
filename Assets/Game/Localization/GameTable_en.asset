@@ -64,6 +64,14 @@ MonoBehaviour:
       A reward from the king awaits those who can defeat him!'
     m_Metadata:
       m_Items: []
+  - m_Id: 5120183385960448
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5120252113825792
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -27,6 +27,14 @@ MonoBehaviour:
     m_Key: gameTable
     m_Metadata:
       m_Items: []
+  - m_Id: 5120183385960448
+    m_Key: resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5120252113825792
+    m_Key: pause
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
